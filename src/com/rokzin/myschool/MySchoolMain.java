@@ -35,6 +35,8 @@ public class MySchoolMain extends Activity {
 		mainViewSwitcher.addView(rFlashCardView);
 		createSideMenu();
 		
+		
+		
 	}
 
 	private void createSideMenu() {
