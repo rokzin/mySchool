@@ -17,12 +17,12 @@
            ></ListView>
 
     <ViewSwitcher
-        android:id="@+id/viewSwitcher1"
+        android:id="@+id/mainViewSwitcher"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inAnimation="@android:anim/slide_in_left"
         android:outAnimation="@android:anim/slide_out_right" 
-        android:background="@android:color/background_light">
+        android:background="@color/GoogleCardBackground">
             
     </ViewSwitcher>
 </com.rokzin.myschool.core.SlideHolder>

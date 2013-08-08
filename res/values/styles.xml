@@ -17,5 +17,5 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
     <color name="mantle">#E8EDE0</color>
-
+    <color name="GoogleCardBackground">#E4E4E4</color>
 </resources>

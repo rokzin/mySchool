@@ -4,9 +4,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
-
+	
    <ImageView android:layout_width="match_parent" android:layout_height="match_parent"
        android:paddingTop="5sp"
-       android:paddingBottom="5sp"
         android:id="@+id/sidemenu_item"></ImageView>
+   <TextView 
+       android:layout_width="match_parent" 
+       android:layout_height="wrap_content"
+       android:gravity="center_horizontal"
+        android:textSize="12sp"
+       android:id="@+id/sidemenu_item_desc"
+       android:paddingBottom="5sp"
+       />
 </LinearLayout>
