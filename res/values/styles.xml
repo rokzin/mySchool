@@ -16,6 +16,12 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
+
     <color name="mantle">#E8EDE0</color>
     <color name="GoogleCardBackground">#E4E4E4</color>
+    <color name="firefly">#102E37</color>
+    <color name="lightBlue">#2BBBD8</color>
+    <color name="jaffa">#F78D3F</color>
+    <color name="darkGray">#b4b3b3</color>
+
 </resources>

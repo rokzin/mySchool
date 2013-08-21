@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.rokzin.myschool.ui.Card xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@android:color/holo_blue_dark"
+    android:paddingLeft="25sp"
+    android:paddingRight="25sp" >
 
-   android:paddingLeft="25sp"
-   android:paddingRight="25sp" >
-    
-    <ViewFlipper 
-        android:layout_width="match_parent"
-        android:layout_height="100sp"
-        android:background="@drawable/googlecard"
-        android:id="@+id/flashcard"
-        ></ViewFlipper>
-
-</LinearLayout>
+</com.rokzin.myschool.ui.Card>

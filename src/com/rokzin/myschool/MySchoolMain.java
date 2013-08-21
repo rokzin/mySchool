@@ -15,7 +15,8 @@ import android.widget.ViewSwitcher;
 
 import com.rokzin.myschool.core.CustomMenuItem;
 import com.rokzin.myschool.core.SideMenuAdapter;
-import com.rokzin.myschool.ui.FlashCardsView;
+import com.rokzin.myschool.ui.AssignmentsView;
+import com.rokzin.myschool.ui.CoursesView;
 import com.rokzin.myschool.ui.SettingsView;
 
 public class MySchoolMain extends Activity {
@@ -24,15 +25,13 @@ public class MySchoolMain extends Activity {
 	
 	private ViewSwitcher mainViewSwitcher;
 	
-	private FlashCardsView rFlashCardView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		rFlashCardView = new FlashCardsView(this);
 		mainViewSwitcher = (ViewSwitcher) findViewById(R.id.mainViewSwitcher);
-		mainViewSwitcher.addView(rFlashCardView);
+		mainViewSwitcher.addView(new SettingsView(this));
 		createSideMenu();
 		
 		
@@ -42,8 +41,11 @@ public class MySchoolMain extends Activity {
 	private void createSideMenu() {
 		sideMenu = (ListView) findViewById(R.id.sidemenu_list);
 		ArrayList<CustomMenuItem> a= new ArrayList<CustomMenuItem>();
+		a.add(new CustomMenuItem(R.drawable.icon_courses,"Courses"));
+		a.add(new CustomMenuItem(R.drawable.icon_assignments,"Assignments"));
 		a.add(new CustomMenuItem(R.drawable.icon_flashcard,"Flashcards"));
 		a.add(new CustomMenuItem(R.drawable.icon_settings,"Settings"));
+		
 		sideMenu.setAdapter(new SideMenuAdapter(this, a));
 		sideMenu.setOnItemClickListener(new OnItemClickListener() {
 
@@ -53,11 +55,10 @@ public class MySchoolMain extends Activity {
 				mainViewSwitcher.removeAllViews();
 				if(i == 1){
 					
-					mainViewSwitcher.addView(new SettingsView(MySchoolMain.this));
+					mainViewSwitcher.addView(new AssignmentsView(MySchoolMain.this));
 				}
 				if(i==0){
-					mainViewSwitcher.addView(rFlashCardView);
-					((FlashCardsView)mainViewSwitcher.getCurrentView()).setResults();
+					mainViewSwitcher.addView(new CoursesView(MySchoolMain.this));
 				}
 				
 			}
@@ -73,7 +74,12 @@ public class MySchoolMain extends Activity {
 			
 			@Override
 			public boolean onMenuItemClick(MenuItem item) {
-				((FlashCardsView)mainViewSwitcher.getCurrentView()).addFlashCardDialog();
+				if(mainViewSwitcher.getCurrentView() instanceof CoursesView){
+					((CoursesView)mainViewSwitcher.getCurrentView()).showAddCourseDialog();
+				}
+				if(mainViewSwitcher.getCurrentView() instanceof AssignmentsView){
+					((AssignmentsView)mainViewSwitcher.getCurrentView()).showAddCourseDialog();
+				}
 				return true;
 			}
 		});

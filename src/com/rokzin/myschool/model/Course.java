@@ -1,7 +1,9 @@
 package com.rokzin.myschool.model;
 
 public class Course {
-	
+	private String ID;
+
+
 	private String title;
 	private String name;
 	private String professor;
@@ -12,7 +14,6 @@ public class Course {
 	
 	public Course(String title, String name, String professor, String location,
 			int creditHours, CourseSchedule courseSchedule) {
-		super();
 		this.title = title;
 		this.name = name;
 		this.professor = professor;
@@ -21,6 +22,14 @@ public class Course {
 		this.courseSchedule = courseSchedule;
 	}
 
+	public String getID() {
+		return ID;
+	}
+
+	public void setID(String iD) {
+		ID = iD;
+	}
+	
 	public String getTitle() {
 		return title;
 	}

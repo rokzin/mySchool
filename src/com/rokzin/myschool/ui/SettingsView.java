@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
-import com.rokzin.myschool.model.database.DatabaseHandler;
+import com.rokzin.myschool.model.database.DBHandler;
 
 public class SettingsView extends RelativeLayout {
 
@@ -32,8 +32,8 @@ public class SettingsView extends RelativeLayout {
 			
 			@Override
 			public void onClick(View v) {
-				DatabaseHandler db = new DatabaseHandler(context);
-				db.deleteAllFlashCards();
+				DBHandler db = new DBHandler(context);
+				db.deleteAllCourses();
 				db.close();
 				
 			}
