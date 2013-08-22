@@ -49,6 +49,7 @@ public class CoursesView extends ListView {
 	}
 	
 	private TextView getHeader() {
+
 		TextView title = new TextView(context);
 		title.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
 		title.setHeight(65);

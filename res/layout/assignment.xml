@@ -22,7 +22,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:textColor="@color/firefly"
             android:textSize="24sp" />
 
         <TextView
@@ -30,7 +29,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/assignmentName"
-            android:textColor="@color/lightBlue"
             android:textSize="18sp" />
 
         <TextView

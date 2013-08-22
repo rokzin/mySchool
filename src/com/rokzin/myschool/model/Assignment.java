@@ -8,7 +8,16 @@ public class Assignment {
 	private String description;
 	private Course course;
 	private Date dueDate;
+	private int status;
 	
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
 	public String getName() {
 		return name;
 	}

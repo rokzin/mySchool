@@ -9,16 +9,20 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.text.InputType;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
+import com.rokzin.myschool.R;
 import com.rokzin.myschool.core.AssignmentAdapter;
 import com.rokzin.myschool.core.SwipeDismissListViewTouchListener;
 import com.rokzin.myschool.model.Assignment;
@@ -29,7 +33,7 @@ import com.rokzin.myschool.utils.F;
 public class AssignmentsView extends ListView {
 
 	private Context context;
-	private AssignmentAdapter asignmentAdapter;
+	private AssignmentAdapter assignmentAdapter;
 	
 	public AssignmentsView(Context context) {
 		super(context);
@@ -37,27 +41,90 @@ public class AssignmentsView extends ListView {
 		setDividerHeight(0);
 		setSelector(color.transparent);
 		setPadding(0, 0, 0, 20);
-		
 		addHeaderView(getHeader());
 		
 		DBHandler db = new DBHandler(context);
 		ArrayList<Assignment> a = db.getAllAssignments();
-		asignmentAdapter = new AssignmentAdapter(context, a);
-		setAdapter(asignmentAdapter);
+		assignmentAdapter = new AssignmentAdapter(context, a);
+		setAdapter(assignmentAdapter);
 		init();
 		
 	}
 	
 	
 
-	private TextView getHeader() {
-		TextView title = new TextView(context);
+	private View getHeader() {
+		RelativeLayout header = new RelativeLayout(context);
+		header.setBackgroundColor(Color.parseColor("#475F77"));
+		header.setPadding(10, 0, 10, 10);
+		
+		final TextView title = new TextView(context);
 		title.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
-		title.setHeight(65);
-		title.setBackgroundColor(Color.parseColor("#475F77"));
 		title.setTextColor(Color.WHITE);
-		title.setText("Assignments");
-		return title;
+		title.setText("Assignments: All");
+		title.setTextSize(18);
+		title.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				DBHandler db = new DBHandler(context);
+				ArrayList<Course> courses = db.getAllCourses();
+				ArrayList<String> titles = new ArrayList<String>();
+				titles.add("All");
+				titles.add("Completed");
+				for (Course course : courses) {
+					titles.add(course.getTitle());
+				}
+				
+				final CharSequence[] options = titles.toArray(new CharSequence[titles.size()]);
+				
+				AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+				builder.setItems(options, new DialogInterface.OnClickListener() {
+				    @Override
+				    public void onClick(DialogInterface dialog, int which) {
+				    	title.setText("Assignments: "+ options[which]);
+				    	if(options[which].equals("All")){
+				    		
+				    		DBHandler db = new DBHandler(context);
+				    		assignmentAdapter.updateList(db.getAllAssignments());
+				    	}
+				    	else if(options[which].equals("Completed")){
+				    		
+				    		DBHandler db = new DBHandler(context);
+				    		assignmentAdapter.updateList(db.getAllInactiveAssignments());
+				    	}
+				    	else{
+				    		DBHandler db = new DBHandler(context);
+				    		assignmentAdapter.updateList(db.getAssignmentFrom(options[which].toString()));
+				    	}
+				    	
+				    }
+
+
+
+				});
+				builder.show();
+				
+			}
+		});
+		
+		RelativeLayout.LayoutParams titleParams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, 80);
+		titleParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+		titleParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+		
+		ImageView corner = new ImageView(context);
+		corner.setImageResource(R.drawable.dropdown_corner);
+		
+		RelativeLayout.LayoutParams cornerParams = new RelativeLayout.LayoutParams(20,20);
+		cornerParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		cornerParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+		
+		
+		header.addView(title,titleParams);
+		header.addView(corner, cornerParams);
+		return header;
 	}
 
 
@@ -79,12 +146,17 @@ public class AssignmentsView extends ListView {
                             public void onDismiss(ListView listView, int[] reverseSortedPositions) {
                                 for (int position : reverseSortedPositions) {
                                 	DBHandler db = new DBHandler(context);
-                                	db.deleteAssignment(asignmentAdapter.getItem(position));
-                                	asignmentAdapter.remove(position);
+                        			Assignment assignment = assignmentAdapter.getItem(position-1);
+                        			Log.d("myschool", String.valueOf(position-1));
+                        			db.setInactive(assignment);
+                        			assignmentAdapter.remove(position-1);
                                 	
                                 }
-                                asignmentAdapter.notifyDataSetChanged();
+                            	assignmentAdapter.notifyDataSetChanged();
+                            	
+                                
                             }
+
                         });
         setOnTouchListener(touchListener);
         // Setting this scroll listener is required to ensure that during ListView scrolling,
@@ -98,7 +170,7 @@ public class AssignmentsView extends ListView {
 
 	private void setResults() {
 		DBHandler db = new DBHandler(context);
-		asignmentAdapter.updateList(db.getAllAssignments());
+		assignmentAdapter.updateList(db.getAllAssignments());
 	}
 
 	public AssignmentsView(Context context, AttributeSet attrs, int defStyle) {
@@ -171,7 +243,7 @@ public class AssignmentsView extends ListView {
 				assignment.setDescription(F.getText(assignmentDescription));
 				assignment.setDueDate(F.getDateFromDatePicket(dp));
 				assignment.setCourse(getCourseFromTitle(coursesSpinner.getSelectedItem().toString()));
-				
+				assignment.setStatus(1);
 				DBHandler db = new DBHandler(context);
 				db.addAssignment(assignment);
 				db.close();

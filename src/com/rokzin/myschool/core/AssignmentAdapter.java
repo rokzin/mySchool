@@ -3,6 +3,7 @@ package com.rokzin.myschool.core;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,25 +37,34 @@ public class AssignmentAdapter extends BaseAdapter {
 	
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder;
-		if (convertView == null) {
+		convertView =null;
+		//if (convertView == null) {
 			convertView = mInflater.inflate(R.layout.assignment, null);
 			holder = new ViewHolder();
 			holder.assignmentName = (TextView) convertView.findViewById(R.id.assignmentName);
 			holder.assignmentDescription = (TextView) convertView.findViewById(R.id.assignmentDescription);
 			holder.course = (TextView) convertView.findViewById(R.id.course);
 			holder.dueDate = (TextView) convertView.findViewById(R.id.dueDate);
-
+			if(assignmentList.get(position).getStatus() == 0){
+				holder.assignmentName.setTextColor(Color.GRAY);
+				holder.assignmentDescription.setTextColor(Color.GRAY);
+			}
+			else{
+				holder.assignmentName.setTextColor(Color.parseColor("#218559"));
+				holder.assignmentDescription.setTextColor(Color.parseColor("#2BBBD8"));
+			}
 			convertView.setTag(holder);
-		}
-		else {
-			holder = (ViewHolder) convertView.getTag();
-		}
+//		}
+//		else {
+//			holder = (ViewHolder) convertView.getTag();
+//		}
 
 		holder.assignmentName.setText(assignmentList.get(position).getName());
 		holder.assignmentDescription.setText(assignmentList.get(position).getDescription());
 		holder.course.setText(assignmentList.get(position).getCourse().getTitle());
 		holder.dueDate.setText("this");//assignmentList.get(position).getDueDate().toString());
-
+		
+		
 		return convertView;
 	}
 
