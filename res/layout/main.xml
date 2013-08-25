@@ -3,26 +3,23 @@
     android:id="@+id/slideHolder"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context=".MainActivity"
-    android:background="@color/mantle" >
+    android:background="@color/mantle"
+    tools:context=".MainActivity" >
 
-
-    
-        <ListView 
-             android:layout_width="85dp"
-        	android:layout_height="fill_parent"
-            android:id="@+id/sidemenu_list"
-            android:background="@drawable/gradient_rl"
-            
-           ></ListView>
+    <ListView
+        android:id="@+id/sidemenu_list"
+        android:layout_width="85dp"
+        android:layout_height="fill_parent"
+        android:background="@drawable/gradient_lr" >
+    </ListView>
 
     <ViewSwitcher
         android:id="@+id/mainViewSwitcher"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/GoogleCardBackground"
         android:inAnimation="@android:anim/slide_in_left"
-        android:outAnimation="@android:anim/slide_out_right" 
-        android:background="@color/GoogleCardBackground">
-            
+        android:outAnimation="@android:anim/slide_out_right" >
     </ViewSwitcher>
+
 </com.rokzin.myschool.core.SlideHolder>

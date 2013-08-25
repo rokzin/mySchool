@@ -12,7 +12,6 @@ import android.util.Log;
 
 import com.rokzin.myschool.model.Assignment;
 import com.rokzin.myschool.model.Course;
-import com.rokzin.myschool.model.CourseSchedule;
 
 public class DBHandler extends SQLiteOpenHelper {
 
@@ -33,7 +32,8 @@ public class DBHandler extends SQLiteOpenHelper {
 	private static final String PROFESSOR = "professor";
 	private static final String LOCATION = "location";
 	private static final String CREDIT_HOURS = "credithours";
-	
+	private static final String SCHEDULE = "schedule";
+
 
 
 	// Course table name 
@@ -59,9 +59,15 @@ public class DBHandler extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 
+		//id,title,name,professor,location,credithours, schedule
 		String CREATE_COURSES_TABLE = "CREATE TABLE " + TABLE_COURSES + "("
-				+ COURSE_ID + " INTEGER PRIMARY KEY," + TITLE + " TEXT,"
-				+ NAME + " TEXT," + PROFESSOR + " TEXT," + LOCATION + " TEXT,"+CREDIT_HOURS +" TEXT"+ ")";
+				+ COURSE_ID + " INTEGER PRIMARY KEY," + 
+				TITLE + " TEXT," + 
+				NAME + " TEXT," + 
+				PROFESSOR + " TEXT," + 
+				LOCATION + " TEXT,"+
+				CREDIT_HOURS +" TEXT, "+
+				SCHEDULE +" TEXT" +")";
 		db.execSQL(CREATE_COURSES_TABLE);
 		
 		String CREATE_ASSIGNMENTS_TABLE = "CREATE TABLE " + TABLE_ASSIGNMENTS + "("
@@ -101,7 +107,7 @@ public class DBHandler extends SQLiteOpenHelper {
 			values.put(PROFESSOR, course.getProfessor()); // professor name
 			values.put(LOCATION, course.getLocation()); // location
 			values.put(CREDIT_HOURS, String.valueOf(course.getCreditHours())); // credit hours
-			
+			values.put(SCHEDULE, course.getCourseSchedule());//schedule
 
 			// Inserting Row
 			db.insert(TABLE_COURSES, null, values);
@@ -121,8 +127,15 @@ public class DBHandler extends SQLiteOpenHelper {
 			// looping through all rows and adding to list
 			if (cursor.moveToFirst()) {
 				do {
-					Course course = new Course(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), Integer.parseInt(cursor.getString(5)), new CourseSchedule());
+					//id,title,name,professor,location,credithours, schedule
+					Course course = new Course();
 					course.setID(cursor.getString(0));
+					course.setTitle(cursor.getString(1));
+					course.setName(cursor.getString(2));
+					course.setProfessor(cursor.getString(3));
+					course.setLocation(cursor.getString(4));
+					course.setCreditHours(Integer.parseInt(cursor.getString(5)));
+					course.setCourseSchedule(cursor.getString(6));
 					// Adding course to list
 					courseList.add(course);
 				} while (cursor.moveToNext());
@@ -281,7 +294,7 @@ public class DBHandler extends SQLiteOpenHelper {
 				public ArrayList<Assignment> getAllInactiveAssignments() {
 					ArrayList<Assignment> assignmentList = new ArrayList<Assignment>();
 					// Select All Query
-					String selectQuery = "SELECT  * FROM " + TABLE_ASSIGNMENTS +" WHERE "+STATUS + " = 0";
+					String selectQuery = "SELECT  * FROM " + TABLE_ASSIGNMENTS +" WHERE "+STATUS + " = 1";
 
 					SQLiteDatabase db = this.getWritableDatabase();
 					Cursor cursor = db.rawQuery(selectQuery, null);
@@ -321,7 +334,7 @@ public class DBHandler extends SQLiteOpenHelper {
 				
 				Course course = getCourseFromTitle(courseTitle);
 				// Select All Query
-				String selectQuery = "SELECT  * FROM " + TABLE_ASSIGNMENTS+ " WHERE " + FORCOURSE_ID + "="+course.getID()+" AND "+STATUS+" = 1";
+				String selectQuery = "SELECT  * FROM " + TABLE_ASSIGNMENTS+ " WHERE " + FORCOURSE_ID + "="+course.getID()+" AND "+STATUS+" = 0";
 
 				SQLiteDatabase db = this.getWritableDatabase();
 				Cursor cursor = db.rawQuery(selectQuery, null);
@@ -399,7 +412,7 @@ public class DBHandler extends SQLiteOpenHelper {
 	}
 
 	public void setInactive(Assignment assignment) {
-		String setInactiveQuery = "UPDATE " + TABLE_ASSIGNMENTS +" SET "+STATUS +"=0 "+" WHERE "+ASSIGNMENT_ID+"="+assignment.getID()+";";
+		String setInactiveQuery = "UPDATE " + TABLE_ASSIGNMENTS +" SET "+STATUS +"=1 "+" WHERE "+ASSIGNMENT_ID+"="+assignment.getID()+";";
 		//UPDATE Books SET Author='Lev Nikolayevich Tolstoy' WHERE Id=1;
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.rawQuery(setInactiveQuery, null);

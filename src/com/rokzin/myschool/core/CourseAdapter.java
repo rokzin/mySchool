@@ -43,7 +43,8 @@ public class CourseAdapter extends BaseAdapter {
 			holder.courseDescription = (TextView) convertView.findViewById(R.id.courseDescription);
 			holder.courseProfessor = (TextView) convertView.findViewById(R.id.courseProfessor);
 			holder.courseLocation = (TextView) convertView.findViewById(R.id.courseLocation);
-
+			holder.courseSchedule = (TextView) convertView.findViewById(R.id.courseSchedule);
+			
 			convertView.setTag(holder);
 		}
 		else {
@@ -54,6 +55,7 @@ public class CourseAdapter extends BaseAdapter {
 		holder.courseDescription.setText(String.valueOf(courseList.get(position).getName()));
 		holder.courseProfessor.setText(String.valueOf(courseList.get(position).getProfessor()));
 		holder.courseLocation.setText(String.valueOf(courseList.get(position).getLocation()));
+		holder.courseSchedule.setText(String.valueOf(courseList.get(position).getCourseSchedule()));
 
 		return convertView;
 	}
@@ -63,6 +65,7 @@ public class CourseAdapter extends BaseAdapter {
 		TextView courseDescription;
 		TextView courseProfessor;
 		TextView courseLocation;
+		TextView courseSchedule;
 		
 	}
 

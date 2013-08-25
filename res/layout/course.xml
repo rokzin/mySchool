@@ -49,6 +49,15 @@
             android:layout_below="@+id/courseDescription"
             android:textColor="@color/darkGray"
             android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/courseSchedule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/deepPink"
+            android:textSize="14sp" />
     </RelativeLayout>
 
 </LinearLayout>

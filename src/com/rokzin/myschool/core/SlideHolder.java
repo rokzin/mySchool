@@ -51,7 +51,7 @@ public class SlideHolder extends FrameLayout {
 	private View mMenuView;
 
 	private int mMode = MODE_READY;
-	private int mDirection = DIRECTION_LEFT;
+	private int mDirection = DIRECTION_RIGHT;
 
 	private int mOffset = 0;
 	private int mStartOffset;

@@ -20,6 +20,7 @@ import android.widget.ViewSwitcher;
 
 import com.rokzin.myschool.core.CustomMenuItem;
 import com.rokzin.myschool.core.SideMenuAdapter;
+import com.rokzin.myschool.core.SlideHolder;
 import com.rokzin.myschool.ui.AssignmentsView;
 import com.rokzin.myschool.ui.CoursesView;
 import com.rokzin.myschool.ui.SettingsView;
@@ -29,14 +30,15 @@ public class MySchoolMain extends Activity {
 	private ListView sideMenu;
 	
 	private ViewSwitcher mainViewSwitcher;
-	
+	private SlideHolder slideHolder;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		mainViewSwitcher = (ViewSwitcher) findViewById(R.id.mainViewSwitcher);
-		mainViewSwitcher.addView(new SettingsView(this));
+		mainViewSwitcher.addView(new CoursesView(this));
+		slideHolder = (SlideHolder) findViewById(R.id.slideHolder);
 		createSideMenu();
 		copyDbToSdcard();
 		
@@ -66,6 +68,10 @@ public class MySchoolMain extends Activity {
 					mainViewSwitcher.addView(new CoursesView(MySchoolMain.this));
 				}
 				
+				if(i==3){
+					mainViewSwitcher.addView(new SettingsView(MySchoolMain.this));
+				}
+				slideHolder.toggle();
 			}
 		});
 		

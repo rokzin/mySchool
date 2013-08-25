@@ -40,5 +40,7 @@ public class SettingsView extends RelativeLayout {
 		});
 		addView(b);
 		
+		
+		
 	}
 }

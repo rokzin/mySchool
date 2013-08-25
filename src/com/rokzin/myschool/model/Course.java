@@ -9,52 +9,91 @@ public class Course {
 	private String professor;
 	private String location;
 	private int creditHours;
-	private CourseSchedule courseSchedule;
+	private String semester;
+	private String courseSchedule;
 	
 	
-	public Course(String title, String name, String professor, String location,
-			int creditHours, CourseSchedule courseSchedule) {
-		this.title = title;
-		this.name = name;
-		this.professor = professor;
-		this.location = location;
-		this.creditHours = creditHours;
-		this.courseSchedule = courseSchedule;
-	}
+	public Course() {}
+
 
 	public String getID() {
 		return ID;
 	}
 
+
 	public void setID(String iD) {
 		ID = iD;
 	}
-	
+
+
 	public String getTitle() {
 		return title;
 	}
+
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 
 	public String getName() {
 		return name;
 	}
 
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
 	public String getProfessor() {
 		return professor;
 	}
+
+
+	public void setProfessor(String professor) {
+		this.professor = professor;
+	}
+
 
 	public String getLocation() {
 		return location;
 	}
 
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+
 	public int getCreditHours() {
 		return creditHours;
 	}
 
-	public CourseSchedule getCourseSchedule() {
+
+	public void setCreditHours(int creditHours) {
+		this.creditHours = creditHours;
+	}
+
+
+	public String getSemester() {
+		return semester;
+	}
+
+
+	public void setSemester(String semester) {
+		this.semester = semester;
+	}
+
+
+	public String getCourseSchedule() {
 		return courseSchedule;
 	}
-	
-	
-	
+
+
+	public void setCourseSchedule(String courseSchedule) {
+		this.courseSchedule = courseSchedule;
+	}
+
 
 }

@@ -3,6 +3,6 @@
 
     <string name="app_name">mySchool</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="status_button_desc">Status</string>
 
 </resources>

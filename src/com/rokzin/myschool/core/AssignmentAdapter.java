@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rokzin.myschool.R;
@@ -45,13 +46,16 @@ public class AssignmentAdapter extends BaseAdapter {
 			holder.assignmentDescription = (TextView) convertView.findViewById(R.id.assignmentDescription);
 			holder.course = (TextView) convertView.findViewById(R.id.course);
 			holder.dueDate = (TextView) convertView.findViewById(R.id.dueDate);
-			if(assignmentList.get(position).getStatus() == 0){
+			holder.status = (ImageView) convertView.findViewById(R.id.status);
+			if(assignmentList.get(position).getStatus() == 1){
 				holder.assignmentName.setTextColor(Color.GRAY);
 				holder.assignmentDescription.setTextColor(Color.GRAY);
+				holder.status.setImageResource(R.drawable.icon_done);
 			}
 			else{
 				holder.assignmentName.setTextColor(Color.parseColor("#218559"));
 				holder.assignmentDescription.setTextColor(Color.parseColor("#2BBBD8"));
+				holder.status.setImageResource(R.drawable.icon_pending);
 			}
 			convertView.setTag(holder);
 //		}
@@ -73,6 +77,7 @@ public class AssignmentAdapter extends BaseAdapter {
 		TextView assignmentDescription;
 		TextView course;
 		TextView dueDate;
+		ImageView status;
 		
 	}
 
